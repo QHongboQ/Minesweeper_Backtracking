@@ -3,33 +3,33 @@
 #define BACKTRACKING_H
 
 #include "Board.h"
-#include <vector>
-#include <SFML/System.hpp>
-#include <algorithm>
+#include <utility> // for std::pair
+#include "Highlighter.h"
 
 class BackTracking {
 public:
     BackTracking(Board& board);
-    void start();
-    void update();  // 每帧调用，推动一步逻辑
+    void initialization();
+    void update();
 
 private:
     Board& board;
     int currentRow;
     int currentCol;
     int comboIndex;
-    int currentNeighborIndex;
+    int currentBombIndex;
 
     std::vector<std::vector<std::pair<int, int>>> combinations;
     std::vector<std::pair<int, int>> currentCombo;
+
+    void compareCombinations();
     std::vector<std::pair<int, int>> toRemove;
-    int removeIndex;
+    std::vector<std::pair<int, int>> toAdd;
+    void advance();
+    void move();
 
+    Highlighter highlighter;
     sf::Clock clock;
-    bool removing = false;
-
-    void advanceToNextNumberTile();
-
 };
 
 #endif // BACKTRACKING_H

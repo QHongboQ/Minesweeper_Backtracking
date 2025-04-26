@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME}
         src/MinesweeperApp.cpp
         src/BackTracking.h
         src/BackTracking.cpp
+        src/Highlighter.h
+        src/Highlighter.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Malena::Malena)

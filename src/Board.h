@@ -18,6 +18,8 @@ public:
     void setBombState(const std::vector<std::pair<int, int>>& newState);
     const std::vector<std::pair<int, int>>& getBombState() const;
 
+    const Node& getNode(int row, int col) const;
+
 private:
     int rows, cols;
     std::vector<std::vector<Node>> grid;

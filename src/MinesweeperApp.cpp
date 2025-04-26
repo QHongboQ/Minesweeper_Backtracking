@@ -15,7 +15,8 @@ void MinesweeperApp::initialization() {
             addComponent(drawable); // ✨关键：将图块添加到应用中
         }
     }
-    backtracking.start();
+
+    backtracking.initialization();
     this->onUpdate([this]() { this->update(); });
 }
 

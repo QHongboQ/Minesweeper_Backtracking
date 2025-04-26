@@ -37,3 +37,7 @@ void Board::setBombState(const std::vector<std::pair<int, int>>& newState) {
 const std::vector<std::pair<int, int>>& Board::getBombState() const {
     return currentBombState;
 }
+
+const Node& Board::getNode(int row, int col) const {
+    return grid[row][col]; // 或者其他数据结构
+}
