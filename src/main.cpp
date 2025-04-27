@@ -7,7 +7,9 @@ int main() {
         std::cerr << "Failed to load texture!" << std::endl;
         return 1;
     }
+    
     MinesweeperApp app(sharedTexture);
+    
     app.run();
     
     return 0;

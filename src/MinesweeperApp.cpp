@@ -8,11 +8,12 @@ void MinesweeperApp::initialization() {
     float cellWidth = 100.f;
     float cellHeight = 100.f;
 
-    for (int r = 0; r < board.getRowCount(); ++r) {
-        for (int c = 0; c < board.getColCount(); ++c) {
-            auto& drawable = board.getNode(r, c).getDrawable();
-            drawable.setPosition(sf::Vector2<float>(c * cellWidth, r * cellHeight));
-            addComponent(drawable); // ✨关键：将图块添加到应用中
+    // Draw the board
+    for (int row = 0; row < board.getRowCount(); ++row) {
+        for (int col = 0; col < board.getColCount(); ++col) {
+            auto& drawable = board.getNode(row, col).getDrawable();
+            drawable.setPosition(sf::Vector2<float>(col * cellWidth, row * cellHeight));
+            addComponent(drawable); // Add the drawable to the application
         }
     }
 
@@ -21,6 +22,7 @@ void MinesweeperApp::initialization() {
 }
 
 void MinesweeperApp::registerEvents() {
+    // An click event test
     // Go through all the nodes and register the click event
         for (int r = 0; r < board.getRowCount(); ++r) {
             for (int c = 0; c < board.getColCount(); ++c) {

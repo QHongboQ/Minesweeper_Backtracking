@@ -14,14 +14,10 @@ public:
 
 private:
     Board& board;
-    int currentRow;
-    int currentCol;
     int comboIndex;
-    int currentBombIndex;
     bool finished = false;
 
     std::vector<std::vector<std::pair<int, int>>> combinations;
-    std::vector<std::pair<int, int>> currentCombo;
 
     void compareCombinations();
     std::vector<std::pair<int, int>> toRemove;

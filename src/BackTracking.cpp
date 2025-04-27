@@ -3,7 +3,7 @@
 BackTracking::BackTracking(Board& board) : board(board), highlighter(board.getRowCount(), board.getColCount()) {}
 
 void BackTracking::initialization() {
-    currentRow = currentCol = comboIndex = currentBombIndex = 0;
+    comboIndex = 0;
     clock.restart();
     highlighter = Highlighter(board.getRowCount(), board.getColCount());
     highlighter.highlight(board); // Highlight the first node
@@ -30,10 +30,8 @@ void BackTracking::initialization() {
     // Draw first combination to the grid
     if (!combinations.empty()) {
         const auto& firstCombo = combinations[0];
-        toAdd.clear();
-        // ✨ 正序 push 到 toAdd 中
-        for (auto it = firstCombo.rbegin(); it != firstCombo.rend(); ++it) {
-            toAdd.push_back(*it);
+        for (auto first = firstCombo.rbegin(); first != firstCombo.rend(); ++first) {
+            toAdd.push_back(*first);
         }
     }
 }
@@ -78,9 +76,12 @@ void BackTracking::advance() {
         auto [removeRowIndex, removeColIndex] = toRemove.back();
 
         if (row == removeRowIndex && col == removeColIndex) {
+            // If the current node is the one to remove, set it to 0 and remove it from the list
             board.getNode(row, col).setNumber(0);
+            // Remove the node from the list
             toRemove.pop_back();
         } else {
+            // If the current node is greater than the node to remove, move to the previous node
             if (row > removeRowIndex || (row == removeRowIndex && col > removeColIndex)) {
                 movePrev();
             } else {
@@ -112,17 +113,13 @@ void BackTracking::advance() {
         }
         move();
     }
-
-    if (board.getNode(row, col).getNumber() > 0) {
-        move(); // skip numbers
-        return;
-    }
 }
 
 
 void BackTracking::move() {
     int maxRow = board.getRowCount();
     int maxCol = board.getColCount();
+    // If is the last combination, and arrived at the last node, set finished to true
     if (comboIndex >= combinations.size() && highlighter.getRow() == maxRow - 1 && highlighter.getCol() == maxCol - 1) {
         finished = true;
     }

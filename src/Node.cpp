@@ -50,10 +50,6 @@ void Node::setNumber(int num)
     updateView();
 }
 
-const std::vector<std::pair<int, int>>& Node::getNeighborCoords() const {
-    return neighbors;
-}
-
 
 std::vector<std::vector<std::pair<int, int>>> Node::getCombinations() const{
     // 3D vector,
@@ -84,7 +80,7 @@ std::vector<std::vector<std::pair<int, int>>> Node::getCombinations() const{
         backtrack(index + 1, bombsLeft - 1);    // When we put a bomb in the current neighbor, we can go to the next neighbor
         currentCombo.pop_back();    // Backtrack to the previous state
 
-        // 跳过当前 neighbor
+        // skip the current neighbor
         backtrack(index + 1, bombsLeft);
     };
 

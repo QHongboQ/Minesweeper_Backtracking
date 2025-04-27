@@ -14,8 +14,6 @@ public:
     int getCol() const;
     int getNumber() const;
 
-    const std::vector<std::pair<int, int>>& getNeighborCoords() const;
-
     // Function to generate all combinations of neighbors
     std::vector<std::vector<std::pair<int, int>>> getCombinations() const;
 
