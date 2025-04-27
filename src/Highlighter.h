@@ -17,6 +17,7 @@ public:
     void highlight(Board& board) const;
     void removeHighlight(Board& board) const;
     void moveNextSkippingNumber(const Board& board);
+    void movePrevSkippingNumber(const Board& board);
 
     int getRow() const;
     int getCol() const;

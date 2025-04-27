@@ -33,17 +33,24 @@ int Highlighter::getCol() const {return col;}
 
 void Highlighter::moveNextSkippingNumber(const Board& board) {
     do {
-        ++col;
-        if (col >= maxCol) {
-            col = 0;
-            ++row;
-        }
-
+        moveNext();
         if (row >= maxRow) {
             row = maxRow - 1;
             col = maxCol - 1;
             break;
         }
 
-    } while (board.getNode(row, col).getNumber() > 0); // ✅ 跳过数字格子
+    } while (board.getNode(row, col).getNumber() > 0); // skip numbers
+}
+
+void Highlighter::movePrevSkippingNumber(const Board& board) {
+    do {
+        movePrev();
+        if (row < 0) {
+            row = 0;
+            col = 0;
+            break;
+        }
+
+    } while (board.getNode(row, col).getNumber() > 0); // skip numbers
 }

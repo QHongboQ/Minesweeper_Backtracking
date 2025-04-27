@@ -7,6 +7,7 @@ void BackTracking::initialization() {
     clock.restart();
     highlighter = Highlighter(board.getRowCount(), board.getColCount());
     highlighter.highlight(board); // Highlight the first node
+
     /*
     Get the information of the board
     Go through all the nodes in the board
@@ -25,22 +26,24 @@ void BackTracking::initialization() {
             }
         }
     }
+
+    // Draw first combination to the grid
     if (!combinations.empty()) {
-        toAdd = combinations[0];
+        const auto& firstCombo = combinations[0];
+        toAdd.clear();
+        // ✨ 正序 push 到 toAdd 中
+        for (auto it = firstCombo.rbegin(); it != firstCombo.rend(); ++it) {
+            toAdd.push_back(*it);
+        }
     }
 }
 
 void BackTracking::update() {
+    if (finished) return;
+
     // Sleep 0.5 seconds between each step
     if (clock.getElapsedTime().asSeconds() < 0.5f) return;
     clock.restart();
-
-    int row = highlighter.getRow();
-    int col = highlighter.getCol();
-    int maxRow = board.getRowCount();
-    int maxCol = board.getColCount();
-
-    if (row == maxRow - 1 && col == maxCol - 1) return; // If we are at the last node, do nothing
 
     advance(); // Move to the next node
   
@@ -69,11 +72,6 @@ void BackTracking::compareCombinations() {
 void BackTracking::advance() {
     int row = highlighter.getRow();
     int col = highlighter.getCol();
-
-    if (board.getNode(row, col).getNumber() > 0) {
-        move(); // 跳过数字格子
-        return;
-    }
     
     // If we have to remove a node, go into the function
     if (!toRemove.empty()) {
@@ -83,7 +81,11 @@ void BackTracking::advance() {
             board.getNode(row, col).setNumber(0);
             toRemove.pop_back();
         } else {
-            move();
+            if (row > removeRowIndex || (row == removeRowIndex && col > removeColIndex)) {
+                movePrev();
+            } else {
+                move();
+            }
         }
     }
     // If we have to add a node, go into the function
@@ -94,21 +96,45 @@ void BackTracking::advance() {
             board.getNode(row, col).setNumber(-1);
             toAdd.pop_back();
         } else {
-            move();
+            if (row > removeRowIndex || (row == removeRowIndex && col > removeColIndex)) {
+                movePrev();
+            } else {
+                move();
+            }
+
         }
     }
     else {
         ++comboIndex;
         if (comboIndex < combinations.size()) {
             compareCombinations();
+            return;
         }
         move();
+    }
+
+    if (board.getNode(row, col).getNumber() > 0) {
+        move(); // skip numbers
+        return;
     }
 }
 
 
 void BackTracking::move() {
+    int maxRow = board.getRowCount();
+    int maxCol = board.getColCount();
+    if (comboIndex >= combinations.size() && highlighter.getRow() == maxRow - 1 && highlighter.getCol() == maxCol - 1) {
+        finished = true;
+    }
+
+
     highlighter.removeHighlight(board);
     highlighter.moveNextSkippingNumber(board);
+    highlighter.highlight(board);
+}
+
+void BackTracking::movePrev() {
+    highlighter.removeHighlight(board);
+    highlighter.movePrevSkippingNumber(board);
     highlighter.highlight(board);
 }

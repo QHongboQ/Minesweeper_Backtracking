@@ -18,6 +18,7 @@ private:
     int currentCol;
     int comboIndex;
     int currentBombIndex;
+    bool finished = false;
 
     std::vector<std::vector<std::pair<int, int>>> combinations;
     std::vector<std::pair<int, int>> currentCombo;
@@ -27,6 +28,7 @@ private:
     std::vector<std::pair<int, int>> toAdd;
     void advance();
     void move();
+    void movePrev();
 
     Highlighter highlighter;
     sf::Clock clock;
