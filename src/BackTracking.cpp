@@ -40,7 +40,7 @@ void BackTracking::update() {
     if (finished) return;
 
     // Sleep 0.5 seconds between each step
-    if (clock.getElapsedTime().asSeconds() < 0.25f) return;
+    if (clock.getElapsedTime().asSeconds() < 0.5f) return;
     clock.restart();
 
     advance(); // Move to the next node
