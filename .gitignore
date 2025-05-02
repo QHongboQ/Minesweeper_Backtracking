@@ -1,21 +1,34 @@
 # Build folders
-/out/
 /build/
+/out/
 /bin/
-/CMakeFiles/
+/lib/
+/malena-build/
 
 # CMake-generated files
 CMakeCache.txt
 cmake_install.cmake
 Makefile
+CMakeFiles/
 
-# Executables
+# Executables & binaries
 *.exe
 *.out
+*.dll
+*.lib
+*.a
+*.so
+*.dylib
 
-# System files
+# Logs
+*.log
+
+# macOS system files
 .DS_Store
+
+# Windows system files
 Thumbs.db
 
-# VSCode settings
+# IDE configs
 .vscode/
+.idea/

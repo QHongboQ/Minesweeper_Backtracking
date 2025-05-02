@@ -1,6 +1,12 @@
-# Treat all text files as LF line endings
+# Treat all source files as text with LF
 * text=auto eol=lf
 
 # Mark binary files
 *.png binary
+*.jpg binary
 *.exe binary
+*.dll binary
+*.lib binary
+*.a binary
+*.so binary
+*.dylib binary
