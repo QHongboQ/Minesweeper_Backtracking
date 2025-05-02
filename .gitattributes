@@ -1,2 +1,6 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Treat all text files as LF line endings
+* text=auto eol=lf
+
+# Mark binary files
+*.png binary
+*.exe binary

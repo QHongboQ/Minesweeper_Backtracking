@@ -27,3 +27,6 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Malena::Malena)
+
+## Copy the image files to the build directory, so that we can use relative paths
+file(COPY ${CMAKE_SOURCE_DIR}/Image DESTINATION ${CMAKE_BINARY_DIR})

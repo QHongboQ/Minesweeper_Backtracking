@@ -1,9 +1,98 @@
-# Minesweeper_Backtracking
- This is an object of 3*3 Minesweeper
+# 🧠 Minesweeper Backtracking Visualizer
 
-Please run the project with CMake, you cannot run it directly.
+A graphical Minesweeper puzzle solver built in C++ using the [Malena](https://github.com/daversmith/Malena) framework and SFML.  
+This project visually demonstrates how a backtracking algorithm can be used to find a valid mine placement that satisfies all numbered tiles on a Minesweeper board.
 
- When you clone the project, you should enter to the ./src/main.cpp, change "C:/NoSystemFile/Hongbo/VSProject/Minesweeper_Backtracking/Image/minesweep_cut.png" to your own absolute path. the picture is at ./Image/minesweep_cut.png.
+![demo](Image/minesweep_cut.png)
 
+---
 
-There is still bugs on larger board, fix this later...
+## ✨ Features
+
+- 🎯 **Backtracking Solver**: Recursively finds a valid mine placement.
+- 🧩 **Visual Animation**: Highlights step-by-step recursive exploration and flag placements.
+- 💡 **Custom Textures**: Each tile updates its image based on state (e.g., mine, number, flag, blank).
+- 🖱️ **Interactive Testing**: Click tiles to simulate gameplay-like behavior (blank/mine reveals).
+- 🔧 **Modular Design**: Clean separation of logic: `Board`, `Node`, `BackTracking`, `Highlighter`.
+
+---
+
+## 📁 Project Structure
+
+```
+.
+├── src/                # C++ source files
+│   ├── Board.cpp/.h
+│   ├── BackTracking.cpp/.h
+│   ├── Highlighter.cpp/.h
+│   ├── TileSprite.cpp/.h
+│   ├── Node.cpp/.h
+│   ├── MinesweeperApp.cpp/.h
+│   └── main.cpp
+├── Image/              # Minesweeper tile texture sheet (minesweep_cut.png)
+├── CMakeLists.txt      # Build configuration
+├── CMakePresets.json   # Compiler & build setup
+└── README.md
+```
+
+---
+
+## 🚀 How to Build
+
+### ✅ Prerequisites
+
+- C++17 or later
+- [CMake](https://cmake.org/download/)
+- [SFML](https://www.sfml-dev.org/) (linked via Malena)
+- Git
+
+### 🔧 Setup & Compile
+
+```bash
+# Clone repository
+git clone https://github.com/your-username/Minesweeper_Backtracking.git
+cd Minesweeper_Backtracking
+
+# Configure build (using CMake presets)
+cmake --preset="GCC 14.2.0 x86_64-w64-mingw32 (ucrt64)"
+
+# Build
+cmake --build --preset="GCC 14.2.0 x86_64-w64-mingw32 (ucrt64)"
+
+# Run executable
+./out/build/GCC*/Minesweeper_Backtracking
+```
+
+---
+
+## 🎨 Tile States
+
+| Number | Meaning                | Texture Position |
+|--------|------------------------|------------------|
+| `0–5`  | Numbered tile          | `(1,0)` to `(1,4)` |
+| `-1`   | Flagged tile           | `(0,2)`           |
+| `-2`   | Clicked blank tile     | `(0,3)`           |
+| `-6`   | Mine explosion         | `(0,6)`           |
+
+---
+
+## 🧠 Algorithm Overview
+
+The solver uses recursive **backtracking** to explore all valid flag combinations around numbered tiles:
+
+- Valid flag placements must not violate any number tile.
+- The solver builds an animation script (`step + flagStep`) as it explores.
+- This script is played by the `Highlighter` class to visualize the solving process.
+
+---
+
+## 📜 License
+
+MIT License. See `LICENSE.md`.
+
+---
+
+## 🙌 Acknowledgements
+
+- Built with [Malena](https://github.com/daversmith/Malena) by [@daversmith](https://github.com/daversmith)
+- Developed by Hongbo Zhou

@@ -6,10 +6,12 @@
 
 class TileSprite : public ml::Rectangle {
 public:
-    TileSprite(const sf::Texture& sharedTexture);
-    void setByGrid(int row, int col);
+    TileSprite(const sf::Texture& sharedTexture);   // Constructor
+    void setByGrid(int row, int col);   // Set the sprite by grid
+
+    
 private:
-    const sf::Texture* texture;
+    const sf::Texture* texture; // Pointer to the texture
 };
 
 #endif // TILESPRITE_H

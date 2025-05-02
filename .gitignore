@@ -1,6 +1,21 @@
-build
-out
-.cache
-.idea
-.vs
-.vscode
+# Build folders
+/out/
+/build/
+/bin/
+/CMakeFiles/
+
+# CMake-generated files
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Executables
+*.exe
+*.out
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/

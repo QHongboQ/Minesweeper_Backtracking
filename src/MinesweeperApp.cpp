@@ -1,42 +1,69 @@
 #include "MinesweeperApp.h"
 
-MinesweeperApp::MinesweeperApp(const sf::Texture& sharedTexture)
-    : ml::Application(720, 420, 32, "Minesweeper App"), board(3, 3, sharedTexture), backtracking(board)
-{}
 
+// Constructor to initialize the Minesweeper application with a preset board
+MinesweeperApp::MinesweeperApp(int row, int col, const sf::Texture& sharedTexture, const std::vector<std::vector<int>>& preset)
+    : ml::Application(row * 100, col * 100, 32, "Minesweeper App"),
+    board(row, col, sharedTexture, preset),
+    backtracking(board),
+    highlighter(board) {}
+
+
+// Constructor to initialize the Minesweeper application with a random board
+MinesweeperApp::MinesweeperApp(int row, int col, int numMines, const sf::Texture& sharedTexture)
+    : ml::Application(row * 100, col * 100, 32, "Minesweeper App"),
+    board(row, col, numMines, sharedTexture),
+    backtracking(board),
+    highlighter(board) {}
+
+
+
+// Initialization function to set up the application
+// This function is called after the application window is created
+// and is used to set up the initial state of the application.
 void MinesweeperApp::initialization() {
-    float cellWidth = 100.f;
-    float cellHeight = 100.f;
-
-    // Draw the board
-    for (int row = 0; row < board.getRowCount(); ++row) {
-        for (int col = 0; col < board.getColCount(); ++col) {
+    // Set the board size for the nodes
+    for (int row = 0; row < board.getMaxRow(); ++row) {
+        for (int col = 0; col < board.getMaxCol(); ++col) {
             auto& drawable = board.getNode(row, col).getDrawable();
             drawable.setPosition(sf::Vector2<float>(col * cellWidth, row * cellHeight));
-            addComponent(drawable); // Add the drawable to the application
+            addComponent(drawable); 
         }
     }
 
+    // Register the events for the nodes
     backtracking.initialization();
+    highlighter.loadScript(
+        backtracking.getSteps(),
+        backtracking.getFlags()
+    );
+
+    // This line registers an update function that will be called every frame
     this->onUpdate([this]() { this->update(); });
 }
 
+
+// Function to register events for the nodes
+// This function is called after the initialization function
 void MinesweeperApp::registerEvents() {
     // An click event test
     // Go through all the nodes and register the click event
-        for (int r = 0; r < board.getRowCount(); ++r) {
-            for (int c = 0; c < board.getColCount(); ++c) {
-                // Get the node and register the click event
-                auto& node = board.getNode(r, c);
-                // Lambda function to handle the click event
-                node.getDrawable().onClick([&node]() {
-                    if (node.getNumber() <= 0)
-                        node.setNumber(-6); 
-                });
-            }
+    for (int r = 0; r < board.getMaxRow(); ++r) {
+        for (int c = 0; c < board.getMaxCol(); ++c) {
+            auto& node = board.getNode(r, c);
+            node.getDrawable().onClick([this, r = r, c = c]() {
+                if (board.isMine(r, c)) {
+                    board.getNode(r, c).setNumber(-6);  // Mine tile
+                } else {
+                    board.getNode(r, c).setNumber(-2);  // Blank tile
+                }
+            });
         }
+    }
 }
 
+
+// Function to update the application state
 void MinesweeperApp::update() {
-    backtracking.update();
+    highlighter.update();
 }
