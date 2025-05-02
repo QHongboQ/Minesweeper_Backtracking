@@ -2,24 +2,18 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 project(Minesweeper_Backtracking)
 
-# ✅ 强制构建静态库，避免链接 DLL 出错
 set(BUILD_SHARED_LIBS OFF)
 
-# ✅ 导出符号（对 Windows 共享库有用，但可选）
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-
-# ✅ 为 Visual Studio 多配置构建器指定 Release 模式
 set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
 
-# ✅ Release 输出路径一致，方便 CI 构建
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 include(FetchContent)
 
-# ✅ 明确关闭 Malena 的不必要模块，减少 CI 构建时间
 set(MALENA_BUILD_EXAMPLES OFF CACHE INTERNAL "")
 set(MALENA_BUILD_TESTS OFF CACHE INTERNAL "")
 set(MALENA_BUILD_DOCS OFF CACHE INTERNAL "")
@@ -49,8 +43,9 @@ add_executable(${PROJECT_NAME}
         src/Highlighter.cpp
 )
 
-# ✅ 正确链接命名空间目标
 target_link_libraries(${PROJECT_NAME} PRIVATE Malena::Malena)
 
-# ✅ 拷贝资源文件（Image 文件夹）
-file(COPY ${CMAKE_SOURCE_DIR}/Image DESTINATION ${CMAKE_BINARY_DIR})
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/Image $<TARGET_FILE_DIR:${PROJECT_NAME}>/Image
+)
