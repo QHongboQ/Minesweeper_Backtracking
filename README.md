@@ -65,6 +65,18 @@ cmake --build --preset="GCC 14.2.0 x86_64-w64-mingw32 (ucrt64)"
 
 ---
 
+## 🧪 Try it without building
+
+To try the visualizer instantly:
+
+1. Go to the [Releases page](https://github.com/your-username/Minesweeper_Backtracking/releases)
+2. Download the `.zip` file
+3. Extract it and run `Minesweeper_Backtracking.exe`
+
+✅ No compilation required.
+
+---
+
 ## 🎨 Tile States
 
 | Number | Meaning                | Texture Position |
