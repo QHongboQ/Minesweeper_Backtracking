@@ -23,11 +23,13 @@ MinesweeperApp::MinesweeperApp(int row, int col, int numMines, const sf::Texture
 // and is used to set up the initial state of the application.
 void MinesweeperApp::initialization() {
     // Set the board size for the nodes
-    for (int row = 0; row < board.getMaxRow(); ++row) {
-        for (int col = 0; col < board.getMaxCol(); ++col) {
-            auto& drawable = board.getNode(row, col).getDrawable();
-            drawable.setPosition(sf::Vector2<float>(col * cellWidth, row * cellHeight));
-            addComponent(drawable); 
+    for (int row = 0; row < board.getMaxRow(); ++row) {                                     // Loop through all the rows
+        for (int col = 0; col < board.getMaxCol(); ++col) {                                 // Loop through all the columns
+            auto& drawable = board.getNode(row, col).getDrawable();                         // Get the drawable object of the node
+            drawable.setPosition(sf::Vector2<float>(col * cellWidth, row * cellHeight));    // Set the position of the drawable object
+            addComponent(static_cast<ml::UIComponent&>(drawable));                          // Add the drawable to the application
+
+
         }
     }
 
