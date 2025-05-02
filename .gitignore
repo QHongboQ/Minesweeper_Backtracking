@@ -1,15 +1,18 @@
-# Build directories
+# === Build Artifacts ===
 /build/
+/out/
 /bin/
 /lib/
+/malena-build/
+/_deps/
 
-# CMake-generated files
+# === CMake Files ===
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
 
-# Executables and libraries
+# === Compiled Binaries ===
 *.exe
 *.dll
 *.lib
@@ -18,13 +21,30 @@ Makefile
 *.dylib
 *.out
 
-# Logs
+# === Logs ===
 *.log
 
-# System files
+# === System Files ===
 .DS_Store
 Thumbs.db
 
-# IDE settings
+# === IDE Settings ===
 .vscode/
 .idea/
+
+# === Clangd & IntelliSense Caches ===
+.cache/
+compile_commands.json
+
+# === Line Endings Normalization ===
+* text=auto eol=lf
+
+# === Binary File Types ===
+*.png binary
+*.jpg binary
+*.exe binary
+*.dll binary
+*.lib binary
+*.a binary
+*.so binary
+*.dylib binary

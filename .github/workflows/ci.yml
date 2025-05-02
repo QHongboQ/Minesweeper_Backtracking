@@ -35,10 +35,11 @@ jobs:
     - name: Configure CMake
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]]; then
-          cmake -B build -G "Visual Studio 17 2022" -A x64 ${{ matrix.platform.flags }} ${{ matrix.config.flags }}
+          cmake -B build ${{ matrix.platform.flags }} ${{ matrix.config.flags }}
         else
           cmake -B build -DCMAKE_BUILD_TYPE=Release ${{ matrix.platform.flags }} ${{ matrix.config.flags }}
         fi
+    
 
     - name: Build
       run: cmake --build build --config Release

@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 project(Minesweeper_Backtracking)
 
+# ✅ 强制构建静态库，避免链接 DLL 出错
+set(BUILD_SHARED_LIBS OFF)
+
+# ✅ 导出符号（对 Windows 共享库有用，但可选）
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
+
 # ✅ 为 Visual Studio 多配置构建器指定 Release 模式
 set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
 
