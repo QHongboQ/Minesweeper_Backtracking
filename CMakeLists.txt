@@ -3,12 +3,22 @@ set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 project(Minesweeper_Backtracking)
 
 include(FetchContent)
+
+set(MALENA_BUILD_EXAMPLES OFF CACHE INTERNAL "")
+set(MALENA_BUILD_TESTS OFF CACHE INTERNAL "")
+set(MALENA_BUILD_DOCS OFF CACHE INTERNAL "")
+
+
 FetchContent_Declare(
         malena
         GIT_REPOSITORY https://github.com/daversmith/Malena.git
         GIT_TAG v0.2.4
 )
 FetchContent_MakeAvailable(malena)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 add_executable(${PROJECT_NAME}
         src/main.cpp
