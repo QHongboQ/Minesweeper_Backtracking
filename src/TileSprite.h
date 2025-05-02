@@ -7,6 +7,15 @@
 class TileSprite : public ml::Rectangle {
 public:
     TileSprite(const sf::Texture& sharedTexture);   // Constructor
+
+    TileSprite(const TileSprite& other)
+        : ml::Rectangle(other), texture(other.texture) {
+        setTexture(texture);
+        setTextureRect(other.getTextureRect());
+        setSize(other.getSize());
+        setPosition(other.getPosition());
+    }
+    
     void setByGrid(int row, int col);   // Set the sprite by grid
 
     
