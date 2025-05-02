@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "_deps/flac-build/src",
+		"source" : "out/build/GCC 14.2.0 x86_64-w64-mingw32 (ucrt64)/_deps/flac-src/src"
+	}
+}

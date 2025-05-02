@@ -1,7 +1,7 @@
-# Treat all source files as text with LF
+# Ensure consistent LF line endings for text files
 * text=auto eol=lf
 
-# Mark binary files
+# Mark binary files to prevent line-ending conversion
 *.png binary
 *.jpg binary
 *.exe binary
